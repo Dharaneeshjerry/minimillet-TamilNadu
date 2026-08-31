@@ -670,6 +670,38 @@
 <script src="data.js"></script>
 <script src="app.js"></script>
 
+<!-- TAMIL NADU MILLET MAP -->
+<section id="tn-map-section">
+  <div class="section-container">
+    <div class="section-head">
+      <div>
+        <div class="section-eyebrow">Geographical Distribution</div>
+        <h2>Millet Growing Regions in Tamil Nadu</h2>
+        <p class="section-head-desc">Explore key districts across Tamil Nadu where millets are traditionally cultivated</p>
+      </div>
+    </div>
+    <div class="tn-map-layout">
+      <div class="tn-map-legend">
+        <div class="legend-title">🌾 Millet Regions</div>
+        <div class="legend-items" id="mapLegendItems"></div>
+        <div class="legend-note">Click a marker on the map to learn more about that region's millet varieties.</div>
+      </div>
+      <div class="tn-map-container">
+        <div id="tnMap"></div>
+        <div class="map-info-box" id="mapInfoBox">
+          <div class="map-info-close" onclick="document.getElementById('mapInfoBox').classList.remove('visible')">✕</div>
+          <div class="map-info-district" id="mapInfoDistrict"></div>
+          <div class="map-info-millets" id="mapInfoMillets"></div>
+          <div class="map-info-note" id="mapInfoNote"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+<script src="script.js"></script>
+
     <section id="contact" class="section-container">
         <h2 class="section-title">Contact Us</h2>
         <form class="contact-form" action="#" method="POST">
