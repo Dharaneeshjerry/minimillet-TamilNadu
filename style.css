@@ -458,3 +458,117 @@ section { padding: 52px 0; }
 @media (max-width: 480px) {
   .millets-grid { grid-template-columns: 1fr; }
 }
+
+/* ===== GOOGLE FONTS ===== */
+@import url('https://fonts.googleapis.com/css2?family=Source+Sans+3:wght@300;400;500;600;700&family=Source+Serif+4:wght@400;600;700&display=swap');
+
+/* ===== VARIABLES ===== */
+:root {
+  --gov-dark:    #1a3c2e;
+  --gov-mid:     #2b6045;
+  --gov-light:   #3d8c63;
+  --gov-pale:    #e8f4ee;
+  --gov-pale2:   #f2f8f4;
+  --amber:       #b5720a;
+  --white:       #ffffff;
+  --bg:          #f4f6f5;
+  --border:      #d0d9d4;
+  --text:        #1a2820;
+  --text-mid:    #3a5246;
+  --text-light:  #607d70;
+  --text-muted:  #8fa89a;
+  --shadow-sm:   0 1px 3px rgba(0,0,0,0.09);
+  --shadow-md:   0 3px 10px rgba(0,0,0,0.10);
+  --r: 4px;
+}
+
+/* ===== RESET ===== */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+
+body {
+  font-family: 'Source Sans 3', 'Segoe UI', Arial, sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  line-height: 1.65;
+  font-size: 15px;
+  overflow-x: hidden;
+}
+
+/* ===== GENERIC SECTION (shared container used by #tn-map-section) ===== */
+section { padding: 52px 0; }
+
+.section-container {
+  max-width: 1240px;
+  margin: 0 auto;
+  padding: 0 24px;
+}
+
+.section-head {
+  margin-bottom: 28px;
+  padding-bottom: 14px;
+  border-bottom: 2px solid var(--border);
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+.section-eyebrow {
+  font-size: 0.67rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 1.8px;
+  color: var(--amber);
+  margin-bottom: 5px;
+  display: flex;
+  align-items: center;
+  gap: 7px;
+}
+.section-eyebrow::before {
+  content: '';
+  width: 18px;
+  height: 2px;
+  background: var(--amber);
+}
+.section-head h2 {
+  font-family: 'Source Serif 4', Georgia, serif;
+  font-size: 1.55rem;
+  font-weight: 700;
+  color: var(--text);
+  line-height: 1.25;
+}
+.section-head-desc {
+  font-size: 0.87rem;
+  color: var(--text-light);
+  margin-top: 4px;
+}
+
+/* ===== TAMIL NADU MILLET MAP SECTION ===== */
+#tn-map-section { background: var(--gov-pale2); border-top: 3px solid var(--gov-light); }
+.tn-map-layout { display: grid; grid-template-columns: 260px 1fr; gap: 24px; align-items: start; margin-top: 28px; }
+.tn-map-legend { background: var(--white); border: 1px solid var(--border); border-radius: 10px; padding: 20px; box-shadow: var(--shadow-sm); position: sticky; top: 80px; }
+.legend-title { font-family: 'Source Serif 4', serif; font-weight: 700; font-size: 1rem; color: var(--gov-dark); margin-bottom: 14px; padding-bottom: 10px; border-bottom: 2px solid var(--gov-pale); }
+.legend-items { display: flex; flex-direction: column; gap: 8px; margin-bottom: 16px; max-height: 380px; overflow-y: auto; }
+.legend-item { display: flex; align-items: center; gap: 10px; cursor: pointer; padding: 6px 8px; border-radius: 6px; transition: background 0.2s; font-size: 0.85rem; color: var(--text-mid); }
+.legend-item:hover { background: var(--gov-pale); color: var(--gov-dark); }
+.legend-dot { width: 13px; height: 13px; border-radius: 50%; flex-shrink: 0; border: 2px solid rgba(255,255,255,0.6); box-shadow: 0 0 0 1px rgba(0,0,0,0.12); }
+.legend-label { font-weight: 500; }
+.legend-note { font-size: 0.75rem; color: var(--text-muted); line-height: 1.5; border-top: 1px solid var(--border); padding-top: 12px; margin-top: 4px; }
+.tn-map-container { position: relative; border-radius: 12px; overflow: hidden; box-shadow: var(--shadow-md); border: 2px solid var(--border); }
+#tnMap { height: 520px; width: 100%; background: #e8f4ee; }
+.map-marker-pin { width: 38px; height: 38px; border-radius: 50% 50% 50% 0; transform: rotate(-45deg); display: flex; align-items: center; justify-content: center; font-size: 18px; box-shadow: 0 3px 10px rgba(0,0,0,0.25); border: 2px solid rgba(255,255,255,0.7); cursor: pointer; }
+.map-info-box { position: absolute; bottom: 20px; left: 20px; width: 280px; background: var(--white); border-radius: 10px; padding: 18px; box-shadow: 0 6px 24px rgba(0,0,0,0.18); border-left: 4px solid var(--gov-light); z-index: 1000; opacity: 0; transform: translateY(10px); pointer-events: none; transition: opacity 0.25s ease, transform 0.25s ease; }
+.map-info-box.visible { opacity: 1; transform: translateY(0); pointer-events: all; }
+.map-info-close { position: absolute; top: 10px; right: 12px; cursor: pointer; font-size: 0.75rem; color: var(--text-muted); font-weight: 600; background: var(--gov-pale); border-radius: 4px; padding: 2px 6px; }
+.map-info-district { font-family: 'Source Serif 4', serif; font-weight: 700; font-size: 1rem; color: var(--gov-dark); margin-bottom: 10px; }
+.map-info-millets { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 10px; }
+.millet-tag { font-size: 0.72rem; font-weight: 600; padding: 3px 9px; border-radius: 20px; border: 1px solid; letter-spacing: 0.02em; }
+.map-info-note { font-size: 0.78rem; color: var(--text-light); line-height: 1.55; }
+
+/* ===== RESPONSIVE ===== */
+@media (max-width: 768px) {
+  section { padding: 36px 0; }
+  .section-container { padding: 0 16px; }
+  .tn-map-layout { grid-template-columns: 1fr; }
+}
