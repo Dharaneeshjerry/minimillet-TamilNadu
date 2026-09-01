@@ -1,1046 +1,12 @@
-/* ===== GOOGLE FONTS ===== */
-@import url('https://fonts.googleapis.com/css2?family=Source+Sans+3:wght@300;400;500;600;700&family=Source+Serif+4:wght@400;600;700&display=swap');
-
-/* ===== VARIABLES ===== */
-:root {
-  --gov-dark:    #1a3c2e;
-  --gov-mid:     #2b6045;
-  --gov-light:   #3d8c63;
-  --gov-pale:    #e8f4ee;
-  --gov-pale2:   #f2f8f4;
-  --amber:       #b5720a;
-  --amber-light: #fdf5e6;
-  --white:       #ffffff;
-  --bg:          #f4f6f5;
-  --border:      #d0d9d4;
-  --border-dark: #b0bfb8;
-  --text:        #1a2820;
-  --text-mid:    #3a5246;
-  --text-light:  #607d70;
-  --text-muted:  #8fa89a;
-  --shadow-sm:   0 1px 3px rgba(0,0,0,0.09);
-  --shadow-md:   0 3px 10px rgba(0,0,0,0.10);
-  --r: 4px;
-}
-
-/* ===== RESET ===== */
-*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-html { scroll-behavior: smooth; }
-
-body {
-  font-family: 'Source Sans 3', 'Segoe UI', Arial, sans-serif;
-  background: var(--bg);
-  color: var(--text);
-  line-height: 1.65;
-  font-size: 15px;
-  overflow-x: hidden;
-}
-
-a { color: var(--gov-mid); text-decoration: none; }
-a:hover { text-decoration: underline; }
-
-/* ===== GENERIC SECTION (shared container used by #millets) ===== */
-section { padding: 52px 0; }
-
-.section-container {
-  max-width: 1240px;
-  margin: 0 auto;
-  padding: 0 24px;
-}
-
-.section-head {
-  margin-bottom: 28px;
-  padding-bottom: 14px;
-  border-bottom: 2px solid var(--border);
-  display: flex;
-  align-items: flex-end;
-  justify-content: space-between;
-  gap: 16px;
-  flex-wrap: wrap;
-}
-.section-eyebrow {
-  font-size: 0.67rem;
-  font-weight: 700;
-  text-transform: uppercase;
-  letter-spacing: 1.8px;
-  color: var(--amber);
-  margin-bottom: 5px;
-  display: flex;
-  align-items: center;
-  gap: 7px;
-}
-.section-eyebrow::before {
-  content: '';
-  width: 18px;
-  height: 2px;
-  background: var(--amber);
-}
-.section-head h2 {
-  font-family: 'Source Serif 4', Georgia, serif;
-  font-size: 1.55rem;
-  font-weight: 700;
-  color: var(--text);
-  line-height: 1.25;
-}
-.section-head-desc {
-  font-size: 0.87rem;
-  color: var(--text-light);
-  margin-top: 4px;
-}
-.section-head-meta {
-  font-size: 0.77rem;
-  color: var(--text-muted);
-  padding-bottom: 2px;
-  white-space: nowrap;
-}
-
-/* ===== MILLETS ===== */
-#millets { background: white; }
-
-.millets-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(268px, 1fr));
-  gap: 16px;
-}
-
-.millet-card {
-  background: white;
-  border: 1px solid var(--border);
-  border-radius: var(--r);
-  overflow: hidden;
-  cursor: pointer;
-  transition: box-shadow 0.15s, border-color 0.15s;
-}
-.millet-card:hover {
-  box-shadow: var(--shadow-md);
-  border-color: var(--border-dark);
-}
-
-.card-color-bar {
-  height: 5px;
-  background: var(--card-color, var(--gov-mid));
-}
-
-.card-body { padding: 18px 18px 14px; }
-
-.card-header-row {
-  display: flex;
-  align-items: flex-start;
-  gap: 11px;
-  margin-bottom: 11px;
-}
-.card-emoji { font-size: 1.9rem; line-height: 1; flex-shrink: 0; }
-.card-name { font-size: 1.02rem; font-weight: 700; color: var(--text); margin-bottom: 2px; }
-.card-aka { font-size: 0.72rem; color: var(--text-light); font-style: italic; }
-
-.card-desc {
-  font-size: 0.83rem;
-  color: var(--text-mid);
-  line-height: 1.6;
-  margin-bottom: 12px;
-}
-
-.card-tags { display: flex; flex-wrap: wrap; gap: 5px; margin-bottom: 12px; }
-.card-tag {
-  font-size: 0.66rem;
-  font-weight: 700;
-  padding: 2px 8px;
-  background: var(--gov-pale);
-  color: var(--gov-dark);
-  text-transform: uppercase;
-  letter-spacing: 0.3px;
-  border-radius: 2px;
-}
-
-.card-foot {
-  border-top: 1px solid var(--border);
-  padding-top: 11px;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-}
-.card-link {
-  font-size: 0.8rem;
-  font-weight: 700;
-  color: var(--gov-mid);
-  display: flex;
-  align-items: center;
-  gap: 4px;
-}
-.card-count { font-size: 0.71rem; color: var(--text-muted); }
-
-/* ===== DETAIL PANEL ===== */
-.detail-panel {
-  position: fixed;
-  inset: 0;
-  z-index: 2000;
-  background: rgba(0,0,0,0.48);
-  display: flex;
-  justify-content: flex-end;
-}
-.detail-panel.hidden { display: none; }
-
-.panel-close {
-  position: fixed;
-  top: 16px;
-  right: calc(568px + 14px);
-  background: white;
-  border: 1px solid var(--border);
-  padding: 8px 14px;
-  border-radius: var(--r);
-  font-size: 0.79rem;
-  font-weight: 700;
-  cursor: pointer;
-  font-family: inherit;
-  color: var(--text-mid);
-  z-index: 2001;
-  box-shadow: var(--shadow-sm);
-}
-.panel-close:hover { background: var(--bg); }
-
-.panel-inner {
-  width: 568px;
-  height: 100vh;
-  background: white;
-  border-left: 1px solid var(--border);
-  display: flex;
-  flex-direction: column;
-  overflow: hidden;
-}
-
-.panel-header {
-  background: var(--gov-dark);
-  padding: 18px 26px;
-  flex-shrink: 0;
-  display: flex;
-  align-items: center;
-  gap: 14px;
-}
-.panel-emoji { font-size: 2rem; }
-#panelName {
-  font-family: 'Source Serif 4', Georgia, serif;
-  font-size: 1.2rem;
-  font-weight: 700;
-  color: white;
-  margin-bottom: 2px;
-}
-#panelTagline { font-size: 0.78rem; color: rgba(255,255,255,0.62); }
-
-.panel-tabs {
-  display: flex;
-  border-bottom: 2px solid var(--border);
-  background: var(--bg);
-  flex-shrink: 0;
-}
-.tab-btn {
-  flex: 1;
-  padding: 11px;
-  border: none;
-  background: transparent;
-  font-family: inherit;
-  font-size: 0.84rem;
-  font-weight: 700;
-  color: var(--text-light);
-  cursor: pointer;
-  border-bottom: 3px solid transparent;
-  margin-bottom: -2px;
-  text-transform: uppercase;
-  letter-spacing: 0.4px;
-  transition: color 0.12s, border-color 0.12s;
-}
-.tab-btn.active { color: var(--gov-dark); border-bottom-color: var(--amber); }
-.tab-btn:hover:not(.active) { color: var(--text-mid); background: rgba(0,0,0,0.03); }
-
-.panel-content {
-  flex: 1;
-  overflow-y: auto;
-  padding: 22px 26px;
-}
-
-.tab-content { display: none; }
-.tab-content.active { display: block; }
-
-.tab-label {
-  font-size: 0.67rem;
-  font-weight: 700;
-  text-transform: uppercase;
-  letter-spacing: 1.5px;
-  color: var(--text-muted);
-  margin-bottom: 16px;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-}
-.per100 { font-weight: 400; font-size: 0.65rem; }
-
-.nutrient-bars { display: flex; flex-direction: column; gap: 12px; }
-.nutrient-meta {
-  display: flex;
-  justify-content: space-between;
-  font-size: 0.82rem;
-  margin-bottom: 4px;
-}
-.nutrient-name { font-weight: 600; color: var(--text); }
-.nutrient-val { font-weight: 700; color: var(--gov-mid); }
-.bar-track { height: 7px; background: var(--border); border-radius: 2px; overflow: hidden; }
-.bar-fill {
-  height: 100%;
-  background: var(--gov-mid);
-  border-radius: 2px;
-  width: 0;
-  transition: width 0.5s ease;
-}
-
-.benefits-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
-.benefit-item {
-  background: var(--gov-pale2);
-  border: 1px solid var(--border);
-  border-left: 3px solid var(--gov-mid);
-  border-radius: var(--r);
-  padding: 12px;
-}
-.benefit-icon { font-size: 1.25rem; margin-bottom: 6px; }
-.benefit-title { font-weight: 700; font-size: 0.82rem; color: var(--text); margin-bottom: 3px; }
-.benefit-text { font-size: 0.75rem; color: var(--text-light); line-height: 1.55; }
-
-.recipe-selector { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 16px; }
-.recipe-btn {
-  padding: 6px 12px;
-  border: 1px solid var(--border);
-  background: var(--bg);
-  border-radius: var(--r);
-  font-size: 0.77rem;
-  font-weight: 600;
-  cursor: pointer;
-  color: var(--text-mid);
-  font-family: inherit;
-  transition: background 0.1s, color 0.1s, border-color 0.1s;
-}
-.recipe-btn.active, .recipe-btn:hover {
-  background: var(--gov-dark);
-  color: white;
-  border-color: var(--gov-dark);
-}
-
-.recipe-card-detail {
-  background: var(--gov-pale2);
-  border: 1px solid var(--border);
-  border-radius: var(--r);
-  padding: 18px;
-}
-.recipe-title {
-  font-family: 'Source Serif 4', Georgia, serif;
-  font-size: 1rem;
-  font-weight: 700;
-  color: var(--text);
-  margin-bottom: 10px;
-}
-.recipe-meta-row {
-  display: flex;
-  gap: 18px;
-  flex-wrap: wrap;
-  padding: 9px 0;
-  border-top: 1px solid var(--border);
-  border-bottom: 1px solid var(--border);
-  margin-bottom: 14px;
-}
-.recipe-meta { font-size: 0.79rem; color: var(--text-light); }
-.recipe-meta span { font-weight: 700; color: var(--text); }
-.recipe-section-title {
-  font-size: 0.65rem;
-  font-weight: 700;
-  text-transform: uppercase;
-  letter-spacing: 1.5px;
-  color: var(--text-muted);
-  margin: 12px 0 7px;
-}
-.ingredient-list { display: flex; flex-direction: column; gap: 3px; }
-.ingredient-row {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 5px 9px;
-  background: white;
-  border: 1px solid var(--border);
-  border-radius: var(--r);
-  font-size: 0.81rem;
-}
-.ingredient-row:nth-child(even) { background: var(--gov-pale); }
-.ing-name { font-weight: 500; color: var(--text); }
-.ing-amount { font-weight: 700; color: var(--gov-mid); font-size: 0.76rem; }
-.steps-list { display: flex; flex-direction: column; gap: 8px; }
-.step-item { display: flex; gap: 10px; align-items: flex-start; }
-.step-num {
-  width: 22px; height: 22px;
-  background: var(--gov-dark); color: white;
-  border-radius: 2px;
-  display: flex; align-items: center; justify-content: center;
-  font-size: 0.67rem; font-weight: 700;
-  flex-shrink: 0; margin-top: 2px;
-}
-.step-text { font-size: 0.82rem; color: var(--text-mid); line-height: 1.65; }
-
-/* ===== MILLET CARD IMAGE ===== */
-.card-img-wrap { width: 100%; overflow: hidden; }
-.card-img {
-  width: 100%;
-  height: 160px;
-  object-fit: cover;
-  display: block;
-}
-
-/* CSS fallback when no real image */
-.card-img-placeholder {
-  width: 100%;
-  height: 160px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  gap: 6px;
-  border-bottom: 1px solid var(--border);
-}
-.card-img-emoji {
-  font-size: 3rem;
-  line-height: 1;
-}
-.card-img-name {
-  font-size: 0.78rem;
-  font-weight: 700;
-  color: var(--text-mid);
-  text-transform: uppercase;
-  letter-spacing: 1px;
-  opacity: 0.8;
-}
-
-/* ===== RECIPE IMAGE IN PANEL ===== */
-.recipe-img-wrap { width: 100%; overflow: hidden; border-radius: var(--r); margin-bottom: 14px; }
-.recipe-img {
-  width: 100%;
-  height: 190px;
-  object-fit: cover;
-  display: block;
-  border-radius: var(--r);
-}
-
-/* CSS fallback for recipe */
-.recipe-img-placeholder {
-  width: 100%;
-  height: 190px;
-  border-radius: var(--r);
-  margin-bottom: 14px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  gap: 8px;
-  border: 1px solid var(--border);
-}
-.recipe-img-emoji { font-size: 2.8rem; line-height: 1; }
-.recipe-img-label {
-  font-size: 0.8rem;
-  font-weight: 700;
-  color: var(--text-mid);
-  opacity: 0.75;
-  text-align: center;
-  padding: 0 16px;
-}
-
-/* ===== RESPONSIVE ===== */
-@media (max-width: 768px) {
-  section { padding: 36px 0; }
-  .section-container { padding: 0 16px; }
-  .panel-inner { width: 100vw; }
-  .panel-close { right: 10px; }
-  .millets-grid { grid-template-columns: 1fr 1fr; }
-  .benefits-grid { grid-template-columns: 1fr; }
-}
-@media (max-width: 480px) {
-  .millets-grid { grid-template-columns: 1fr; }
-}
-
-/* ===== GOOGLE FONTS ===== */
-@import url('https://fonts.googleapis.com/css2?family=Source+Sans+3:wght@300;400;500;600;700&family=Source+Serif+4:wght@400;600;700&display=swap');
-
-/* ===== VARIABLES ===== */
-:root {
-  --gov-dark:    #1a3c2e;
-  --gov-mid:     #2b6045;
-  --gov-light:   #3d8c63;
-  --gov-pale:    #e8f4ee;
-  --gov-pale2:   #f2f8f4;
-  --amber:       #b5720a;
-  --white:       #ffffff;
-  --bg:          #f4f6f5;
-  --border:      #d0d9d4;
-  --text:        #1a2820;
-  --text-mid:    #3a5246;
-  --text-light:  #607d70;
-  --text-muted:  #8fa89a;
-  --shadow-sm:   0 1px 3px rgba(0,0,0,0.09);
-  --shadow-md:   0 3px 10px rgba(0,0,0,0.10);
-  --r: 4px;
-}
-
-/* ===== RESET ===== */
-*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-html { scroll-behavior: smooth; }
-
-body {
-  font-family: 'Source Sans 3', 'Segoe UI', Arial, sans-serif;
-  background: var(--bg);
-  color: var(--text);
-  line-height: 1.65;
-  font-size: 15px;
-  overflow-x: hidden;
-}
-
-/* ===== GENERIC SECTION (shared container used by #tn-map-section) ===== */
-section { padding: 52px 0; }
-
-.section-container {
-  max-width: 1240px;
-  margin: 0 auto;
-  padding: 0 24px;
-}
-
-.section-head {
-  margin-bottom: 28px;
-  padding-bottom: 14px;
-  border-bottom: 2px solid var(--border);
-  display: flex;
-  align-items: flex-end;
-  justify-content: space-between;
-  gap: 16px;
-  flex-wrap: wrap;
-}
-.section-eyebrow {
-  font-size: 0.67rem;
-  font-weight: 700;
-  text-transform: uppercase;
-  letter-spacing: 1.8px;
-  color: var(--amber);
-  margin-bottom: 5px;
-  display: flex;
-  align-items: center;
-  gap: 7px;
-}
-.section-eyebrow::before {
-  content: '';
-  width: 18px;
-  height: 2px;
-  background: var(--amber);
-}
-.section-head h2 {
-  font-family: 'Source Serif 4', Georgia, serif;
-  font-size: 1.55rem;
-  font-weight: 700;
-  color: var(--text);
-  line-height: 1.25;
-}
-.section-head-desc {
-  font-size: 0.87rem;
-  color: var(--text-light);
-  margin-top: 4px;
-}
-
-/* ===== TAMIL NADU MILLET MAP SECTION ===== */
-#tn-map-section { background: var(--gov-pale2); border-top: 3px solid var(--gov-light); }
-.tn-map-layout { display: grid; grid-template-columns: 260px 1fr; gap: 24px; align-items: start; margin-top: 28px; }
-.tn-map-legend { background: var(--white); border: 1px solid var(--border); border-radius: 10px; padding: 20px; box-shadow: var(--shadow-sm); position: sticky; top: 80px; }
-.legend-title { font-family: 'Source Serif 4', serif; font-weight: 700; font-size: 1rem; color: var(--gov-dark); margin-bottom: 14px; padding-bottom: 10px; border-bottom: 2px solid var(--gov-pale); }
-.legend-items { display: flex; flex-direction: column; gap: 8px; margin-bottom: 16px; max-height: 380px; overflow-y: auto; }
-.legend-item { display: flex; align-items: center; gap: 10px; cursor: pointer; padding: 6px 8px; border-radius: 6px; transition: background 0.2s; font-size: 0.85rem; color: var(--text-mid); }
-.legend-item:hover { background: var(--gov-pale); color: var(--gov-dark); }
-.legend-dot { width: 13px; height: 13px; border-radius: 50%; flex-shrink: 0; border: 2px solid rgba(255,255,255,0.6); box-shadow: 0 0 0 1px rgba(0,0,0,0.12); }
-.legend-label { font-weight: 500; }
-.legend-note { font-size: 0.75rem; color: var(--text-muted); line-height: 1.5; border-top: 1px solid var(--border); padding-top: 12px; margin-top: 4px; }
-.tn-map-container { position: relative; border-radius: 12px; overflow: hidden; box-shadow: var(--shadow-md); border: 2px solid var(--border); }
-#tnMap { height: 520px; width: 100%; background: #e8f4ee; }
-.map-marker-pin { width: 38px; height: 38px; border-radius: 50% 50% 50% 0; transform: rotate(-45deg); display: flex; align-items: center; justify-content: center; font-size: 18px; box-shadow: 0 3px 10px rgba(0,0,0,0.25); border: 2px solid rgba(255,255,255,0.7); cursor: pointer; }
-.map-info-box { position: absolute; bottom: 20px; left: 20px; width: 280px; background: var(--white); border-radius: 10px; padding: 18px; box-shadow: 0 6px 24px rgba(0,0,0,0.18); border-left: 4px solid var(--gov-light); z-index: 1000; opacity: 0; transform: translateY(10px); pointer-events: none; transition: opacity 0.25s ease, transform 0.25s ease; }
-.map-info-box.visible { opacity: 1; transform: translateY(0); pointer-events: all; }
-.map-info-close { position: absolute; top: 10px; right: 12px; cursor: pointer; font-size: 0.75rem; color: var(--text-muted); font-weight: 600; background: var(--gov-pale); border-radius: 4px; padding: 2px 6px; }
-.map-info-district { font-family: 'Source Serif 4', serif; font-weight: 700; font-size: 1rem; color: var(--gov-dark); margin-bottom: 10px; }
-.map-info-millets { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 10px; }
-.millet-tag { font-size: 0.72rem; font-weight: 600; padding: 3px 9px; border-radius: 20px; border: 1px solid; letter-spacing: 0.02em; }
-.map-info-note { font-size: 0.78rem; color: var(--text-light); line-height: 1.55; }
-
-/* ===== RESPONSIVE ===== */
-@media (max-width: 768px) {
-  section { padding: 36px 0; }
-  .section-container { padding: 0 16px; }
-  .tn-map-layout { grid-template-columns: 1fr; }
-}
-/* ===== GOOGLE FONTS ===== */
-@import url('https://fonts.googleapis.com/css2?family=Source+Sans+3:wght@300;400;500;600;700&family=Source+Serif+4:wght@400;600;700&display=swap');
-
-/* ===== VARIABLES ===== */
-:root {
-  --gov-dark:    #1a3c2e;
-  --gov-mid:     #2b6045;
-  --gov-light:   #3d8c63;
-  --gov-pale:    #e8f4ee;
-  --gov-pale2:   #f2f8f4;
-  --amber:       #b5720a;
-  --amber-light: #fdf5e6;
-  --white:       #ffffff;
-  --bg:          #f4f6f5;
-  --border:      #d0d9d4;
-  --border-dark: #b0bfb8;
-  --text:        #1a2820;
-  --text-mid:    #3a5246;
-  --text-light:  #607d70;
-  --text-muted:  #8fa89a;
-  --shadow-sm:   0 1px 3px rgba(0,0,0,0.09);
-  --shadow-md:   0 3px 10px rgba(0,0,0,0.10);
-  --r: 4px;
-}
-
-/* ===== RESET ===== */
-*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-html { scroll-behavior: smooth; }
-
-body {
-  font-family: 'Source Sans 3', 'Segoe UI', Arial, sans-serif;
-  background: var(--bg);
-  color: var(--text);
-  line-height: 1.65;
-  font-size: 15px;
-  overflow-x: hidden;
-}
-
-a { color: var(--gov-mid); text-decoration: none; }
-a:hover { text-decoration: underline; }
-
-/* ===== GENERIC SECTION (shared container used by #millets) ===== */
-section { padding: 52px 0; }
-
-.section-container {
-  max-width: 1240px;
-  margin: 0 auto;
-  padding: 0 24px;
-}
-
-.section-head {
-  margin-bottom: 28px;
-  padding-bottom: 14px;
-  border-bottom: 2px solid var(--border);
-  display: flex;
-  align-items: flex-end;
-  justify-content: space-between;
-  gap: 16px;
-  flex-wrap: wrap;
-}
-.section-eyebrow {
-  font-size: 0.67rem;
-  font-weight: 700;
-  text-transform: uppercase;
-  letter-spacing: 1.8px;
-  color: var(--amber);
-  margin-bottom: 5px;
-  display: flex;
-  align-items: center;
-  gap: 7px;
-}
-.section-eyebrow::before {
-  content: '';
-  width: 18px;
-  height: 2px;
-  background: var(--amber);
-}
-.section-head h2 {
-  font-family: 'Source Serif 4', Georgia, serif;
-  font-size: 1.55rem;
-  font-weight: 700;
-  color: var(--text);
-  line-height: 1.25;
-}
-.section-head-desc {
-  font-size: 0.87rem;
-  color: var(--text-light);
-  margin-top: 4px;
-}
-.section-head-meta {
-  font-size: 0.77rem;
-  color: var(--text-muted);
-  padding-bottom: 2px;
-  white-space: nowrap;
-}
-
-/* ===== MILLETS ===== */
-#millets { background: white; }
-
-.millets-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(268px, 1fr));
-  gap: 16px;
-}
-
-.millet-card {
-  background: white;
-  border: 1px solid var(--border);
-  border-radius: var(--r);
-  overflow: hidden;
-  cursor: pointer;
-  transition: box-shadow 0.15s, border-color 0.15s;
-}
-.millet-card:hover {
-  box-shadow: var(--shadow-md);
-  border-color: var(--border-dark);
-}
-
-.card-color-bar {
-  height: 5px;
-  background: var(--card-color, var(--gov-mid));
-}
-
-.card-body { padding: 18px 18px 14px; }
-
-.card-header-row {
-  display: flex;
-  align-items: flex-start;
-  gap: 11px;
-  margin-bottom: 11px;
-}
-.card-emoji { font-size: 1.9rem; line-height: 1; flex-shrink: 0; }
-.card-name { font-size: 1.02rem; font-weight: 700; color: var(--text); margin-bottom: 2px; }
-.card-aka { font-size: 0.72rem; color: var(--text-light); font-style: italic; }
-
-.card-desc {
-  font-size: 0.83rem;
-  color: var(--text-mid);
-  line-height: 1.6;
-  margin-bottom: 12px;
-}
-
-.card-tags { display: flex; flex-wrap: wrap; gap: 5px; margin-bottom: 12px; }
-.card-tag {
-  font-size: 0.66rem;
-  font-weight: 700;
-  padding: 2px 8px;
-  background: var(--gov-pale);
-  color: var(--gov-dark);
-  text-transform: uppercase;
-  letter-spacing: 0.3px;
-  border-radius: 2px;
-}
-
-.card-foot {
-  border-top: 1px solid var(--border);
-  padding-top: 11px;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-}
-.card-link {
-  font-size: 0.8rem;
-  font-weight: 700;
-  color: var(--gov-mid);
-  display: flex;
-  align-items: center;
-  gap: 4px;
-}
-.card-count { font-size: 0.71rem; color: var(--text-muted); }
-
-/* ===== DETAIL PANEL ===== */
-.detail-panel {
-  position: fixed;
-  inset: 0;
-  z-index: 2000;
-  background: rgba(0,0,0,0.48);
-  display: flex;
-  justify-content: flex-end;
-}
-.detail-panel.hidden { display: none; }
-
-.panel-close {
-  position: fixed;
-  top: 16px;
-  right: calc(568px + 14px);
-  background: white;
-  border: 1px solid var(--border);
-  padding: 8px 14px;
-  border-radius: var(--r);
-  font-size: 0.79rem;
-  font-weight: 700;
-  cursor: pointer;
-  font-family: inherit;
-  color: var(--text-mid);
-  z-index: 2001;
-  box-shadow: var(--shadow-sm);
-}
-.panel-close:hover { background: var(--bg); }
-
-.panel-inner {
-  width: 568px;
-  height: 100vh;
-  background: white;
-  border-left: 1px solid var(--border);
-  display: flex;
-  flex-direction: column;
-  overflow: hidden;
-}
-
-.panel-header {
-  background: var(--gov-dark);
-  padding: 18px 26px;
-  flex-shrink: 0;
-  display: flex;
-  align-items: center;
-  gap: 14px;
-}
-.panel-emoji { font-size: 2rem; }
-#panelName {
-  font-family: 'Source Serif 4', Georgia, serif;
-  font-size: 1.2rem;
-  font-weight: 700;
-  color: white;
-  margin-bottom: 2px;
-}
-#panelTagline { font-size: 0.78rem; color: rgba(255,255,255,0.62); }
-
-.panel-tabs {
-  display: flex;
-  border-bottom: 2px solid var(--border);
-  background: var(--bg);
-  flex-shrink: 0;
-}
-.tab-btn {
-  flex: 1;
-  padding: 11px;
-  border: none;
-  background: transparent;
-  font-family: inherit;
-  font-size: 0.84rem;
-  font-weight: 700;
-  color: var(--text-light);
-  cursor: pointer;
-  border-bottom: 3px solid transparent;
-  margin-bottom: -2px;
-  text-transform: uppercase;
-  letter-spacing: 0.4px;
-  transition: color 0.12s, border-color 0.12s;
-}
-.tab-btn.active { color: var(--gov-dark); border-bottom-color: var(--amber); }
-.tab-btn:hover:not(.active) { color: var(--text-mid); background: rgba(0,0,0,0.03); }
-
-.panel-content {
-  flex: 1;
-  overflow-y: auto;
-  padding: 22px 26px;
-}
-
-.tab-content { display: none; }
-.tab-content.active { display: block; }
-
-.tab-label {
-  font-size: 0.67rem;
-  font-weight: 700;
-  text-transform: uppercase;
-  letter-spacing: 1.5px;
-  color: var(--text-muted);
-  margin-bottom: 16px;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-}
-.per100 { font-weight: 400; font-size: 0.65rem; }
-
-.nutrient-bars { display: flex; flex-direction: column; gap: 12px; }
-.nutrient-meta {
-  display: flex;
-  justify-content: space-between;
-  font-size: 0.82rem;
-  margin-bottom: 4px;
-}
-.nutrient-name { font-weight: 600; color: var(--text); }
-.nutrient-val { font-weight: 700; color: var(--gov-mid); }
-.bar-track { height: 7px; background: var(--border); border-radius: 2px; overflow: hidden; }
-.bar-fill {
-  height: 100%;
-  background: var(--gov-mid);
-  border-radius: 2px;
-  width: 0;
-  transition: width 0.5s ease;
-}
-
-.benefits-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
-.benefit-item {
-  background: var(--gov-pale2);
-  border: 1px solid var(--border);
-  border-left: 3px solid var(--gov-mid);
-  border-radius: var(--r);
-  padding: 12px;
-}
-.benefit-icon { font-size: 1.25rem; margin-bottom: 6px; }
-.benefit-title { font-weight: 700; font-size: 0.82rem; color: var(--text); margin-bottom: 3px; }
-.benefit-text { font-size: 0.75rem; color: var(--text-light); line-height: 1.55; }
-
-.recipe-selector { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 16px; }
-.recipe-btn {
-  padding: 6px 12px;
-  border: 1px solid var(--border);
-  background: var(--bg);
-  border-radius: var(--r);
-  font-size: 0.77rem;
-  font-weight: 600;
-  cursor: pointer;
-  color: var(--text-mid);
-  font-family: inherit;
-  transition: background 0.1s, color 0.1s, border-color 0.1s;
-}
-.recipe-btn.active, .recipe-btn:hover {
-  background: var(--gov-dark);
-  color: white;
-  border-color: var(--gov-dark);
-}
-
-.recipe-card-detail {
-  background: var(--gov-pale2);
-  border: 1px solid var(--border);
-  border-radius: var(--r);
-  padding: 18px;
-}
-.recipe-title {
-  font-family: 'Source Serif 4', Georgia, serif;
-  font-size: 1rem;
-  font-weight: 700;
-  color: var(--text);
-  margin-bottom: 10px;
-}
-.recipe-meta-row {
-  display: flex;
-  gap: 18px;
-  flex-wrap: wrap;
-  padding: 9px 0;
-  border-top: 1px solid var(--border);
-  border-bottom: 1px solid var(--border);
-  margin-bottom: 14px;
-}
-.recipe-meta { font-size: 0.79rem; color: var(--text-light); }
-.recipe-meta span { font-weight: 700; color: var(--text); }
-.recipe-section-title {
-  font-size: 0.65rem;
-  font-weight: 700;
-  text-transform: uppercase;
-  letter-spacing: 1.5px;
-  color: var(--text-muted);
-  margin: 12px 0 7px;
-}
-.ingredient-list { display: flex; flex-direction: column; gap: 3px; }
-.ingredient-row {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 5px 9px;
-  background: white;
-  border: 1px solid var(--border);
-  border-radius: var(--r);
-  font-size: 0.81rem;
-}
-.ingredient-row:nth-child(even) { background: var(--gov-pale); }
-.ing-name { font-weight: 500; color: var(--text); }
-.ing-amount { font-weight: 700; color: var(--gov-mid); font-size: 0.76rem; }
-.steps-list { display: flex; flex-direction: column; gap: 8px; }
-.step-item { display: flex; gap: 10px; align-items: flex-start; }
-.step-num {
-  width: 22px; height: 22px;
-  background: var(--gov-dark); color: white;
-  border-radius: 2px;
-  display: flex; align-items: center; justify-content: center;
-  font-size: 0.67rem; font-weight: 700;
-  flex-shrink: 0; margin-top: 2px;
-}
-.step-text { font-size: 0.82rem; color: var(--text-mid); line-height: 1.65; }
-
-/* ===== MILLET CARD IMAGE ===== */
-.card-img-wrap { width: 100%; overflow: hidden; }
-.card-img {
-  width: 100%;
-  height: 160px;
-  object-fit: cover;
-  display: block;
-}
-
-/* CSS fallback when no real image */
-.card-img-placeholder {
-  width: 100%;
-  height: 160px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  gap: 6px;
-  border-bottom: 1px solid var(--border);
-}
-.card-img-emoji {
-  font-size: 3rem;
-  line-height: 1;
-}
-.card-img-name {
-  font-size: 0.78rem;
-  font-weight: 700;
-  color: var(--text-mid);
-  text-transform: uppercase;
-  letter-spacing: 1px;
-  opacity: 0.8;
-}
-
-/* ===== RECIPE IMAGE IN PANEL ===== */
-.recipe-img-wrap { width: 100%; overflow: hidden; border-radius: var(--r); margin-bottom: 14px; }
-.recipe-img {
-  width: 100%;
-  height: 190px;
-  object-fit: cover;
-  display: block;
-  border-radius: var(--r);
-}
-
-/* CSS fallback for recipe */
-.recipe-img-placeholder {
-  width: 100%;
-  height: 190px;
-  border-radius: var(--r);
-  margin-bottom: 14px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  gap: 8px;
-  border: 1px solid var(--border);
-}
-.recipe-img-emoji { font-size: 2.8rem; line-height: 1; }
-.recipe-img-label {
-  font-size: 0.8rem;
-  font-weight: 700;
-  color: var(--text-mid);
-  opacity: 0.75;
-  text-align: center;
-  padding: 0 16px;
-}
-
-/* ===== RESPONSIVE ===== */
-@media (max-width: 768px) {
-  section { padding: 36px 0; }
-  .section-container { padding: 0 16px; }
-  .panel-inner { width: 100vw; }
-  .panel-close { right: 10px; }
-  .millets-grid { grid-template-columns: 1fr 1fr; }
-  .benefits-grid { grid-template-columns: 1fr; }
-}
-@media (max-width: 480px) {
-  .millets-grid { grid-template-columns: 1fr; }
-}
-
-
 /* =========================================================
-   style.css — Millet Grid + Tamil Nadu Map sections
-   (Loaded before the page's inline <style>, so it won't
-   override the header / hero / about / gallery / videos look)
+   style.css — Millet Tamil Nadu Project
+   Consolidated and Optimized Stylesheet
 ========================================================= */
 
-/* ===== VARIABLES (used only by .millets-grid / .millet-card / #tn-map-section) ===== */
+/* ===== GOOGLE FONTS ===== */
+@import url('https://fonts.googleapis.com/css2?family=Source+Sans+3:wght@300;400;500;600;700&family=Source+Serif+4:wght@400;600;700&display=swap');
+
+/* ===== VARIABLES ===== */
 :root {
   --gov-dark:    #1a3c2e;
   --gov-mid:     #2b6045;
@@ -1048,18 +14,59 @@ section { padding: 52px 0; }
   --gov-pale:    #e8f4ee;
   --gov-pale2:   #f2f8f4;
   --amber:       #b5720a;
+  --amber-light: #fdf5e6;
   --white:       #ffffff;
+  --bg:          #f4f6f5;
   --border:      #d0d9d4;
+  --border-dark: #b0bfb8;
   --text:        #1a2820;
   --text-mid:    #3a5246;
   --text-light:  #607d70;
   --text-muted:  #8fa89a;
   --shadow-sm:   0 1px 3px rgba(0,0,0,0.09);
   --shadow-md:   0 3px 10px rgba(0,0,0,0.10);
-  --r: 4px;
+  --r:           4px;
 }
 
-/* ===== Shared header used by both new sections ===== */
+/* ===== RESET ===== */
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: 'Source Sans 3', 'Segoe UI', Arial, sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  line-height: 1.65;
+  font-size: 15px;
+  overflow-x: hidden;
+}
+
+a {
+  color: var(--gov-mid);
+  text-decoration: none;
+}
+a:hover {
+  text-decoration: underline;
+}
+
+/* ===== GENERIC SECTIONS & CONTAINERS ===== */
+section {
+  padding: 52px 0;
+}
+
+.section-container {
+  max-width: 1240px;
+  margin: 0 auto;
+  padding: 0 24px;
+}
+
 .section-head {
   margin-bottom: 28px;
   padding-bottom: 14px;
@@ -1071,6 +78,7 @@ section { padding: 52px 0; }
   flex-wrap: wrap;
   text-align: left;
 }
+
 .section-eyebrow {
   font-size: 0.67rem;
   font-weight: 700;
@@ -1082,28 +90,28 @@ section { padding: 52px 0; }
   align-items: center;
   gap: 7px;
 }
+
 .section-eyebrow::before {
   content: '';
   width: 18px;
   height: 2px;
   background: var(--amber);
 }
+
 .section-head h2 {
-  font-family: 'Outfit', sans-serif;
+  font-family: 'Source Serif 4', Georgia, serif;
   font-size: 1.55rem;
   font-weight: 700;
   color: var(--text);
   line-height: 1.25;
-  text-transform: none;
-  letter-spacing: normal;
-  border-bottom: none;
-  padding-bottom: 0;
 }
+
 .section-head-desc {
   font-size: 0.87rem;
   color: var(--text-light);
   margin-top: 4px;
 }
+
 .section-head-meta {
   font-size: 0.77rem;
   color: var(--text-muted);
@@ -1111,12 +119,15 @@ section { padding: 52px 0; }
   white-space: nowrap;
 }
 
-/* ===== MILLETS GRID ===== */
-#millets { text-align: left; }
+/* ===== MILLETS GRID SECTION ===== */
+#millets {
+  background: white;
+  text-align: left;
+}
 
 .millets-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(268px, 1fr));
   gap: 16px;
 }
 
@@ -1128,9 +139,10 @@ section { padding: 52px 0; }
   cursor: pointer;
   transition: box-shadow 0.15s, border-color 0.15s;
 }
+
 .millet-card:hover {
   box-shadow: var(--shadow-md);
-  border-color: var(--gov-light);
+  border-color: var(--border-dark);
 }
 
 .card-color-bar {
@@ -1138,7 +150,9 @@ section { padding: 52px 0; }
   background: var(--card-color, var(--gov-mid));
 }
 
-.card-body { padding: 18px 18px 14px; }
+.card-body {
+  padding: 18px 18px 14px;
+}
 
 .card-header-row {
   display: flex;
@@ -1146,9 +160,25 @@ section { padding: 52px 0; }
   gap: 11px;
   margin-bottom: 11px;
 }
-.card-emoji { font-size: 1.9rem; line-height: 1; flex-shrink: 0; }
-.card-name { font-size: 1.02rem; font-weight: 700; color: var(--text); margin-bottom: 2px; }
-.card-aka { font-size: 0.72rem; color: var(--text-light); font-style: italic; }
+
+.card-emoji {
+  font-size: 1.9rem;
+  line-height: 1;
+  flex-shrink: 0;
+}
+
+.card-name {
+  font-size: 1.02rem;
+  font-weight: 700;
+  color: var(--text);
+  margin-bottom: 2px;
+}
+
+.card-aka {
+  font-size: 0.72rem;
+  color: var(--text-light);
+  font-style: italic;
+}
 
 .card-desc {
   font-size: 0.83rem;
@@ -1157,7 +187,13 @@ section { padding: 52px 0; }
   margin-bottom: 12px;
 }
 
-.card-tags { display: flex; flex-wrap: wrap; gap: 5px; margin-bottom: 12px; }
+.card-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 5px;
+  margin-bottom: 12px;
+}
+
 .card-tag {
   font-size: 0.66rem;
   font-weight: 700;
@@ -1176,6 +212,7 @@ section { padding: 52px 0; }
   align-items: center;
   justify-content: space-between;
 }
+
 .card-link {
   font-size: 0.8rem;
   font-weight: 700;
@@ -1184,173 +221,643 @@ section { padding: 52px 0; }
   align-items: center;
   gap: 4px;
 }
-.card-count { font-size: 0.71rem; color: var(--text-muted); }
 
-/* ===== Millet card image ===== */
-.card-img { width: 100%; height: 160px; object-fit: cover; display: block; }
+.card-count {
+  font-size: 0.71rem;
+  color: var(--text-muted);
+}
+
+/* Millet Card Images & Placeholders */
+.card-img-wrap {
+  width: 100%;
+  overflow: hidden;
+}
+
+.card-img {
+  width: 100%;
+  height: 160px;
+  object-fit: cover;
+  display: block;
+}
+
 .card-img-placeholder {
-  width: 100%; height: 160px;
-  display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 6px;
+  width: 100%;
+  height: 160px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
   border-bottom: 1px solid var(--border);
+  background: var(--gov-pale2);
 }
-.card-img-emoji { font-size: 3rem; line-height: 1; }
 
-/* ===== DETAIL PANEL (millet click-through) ===== */
-.detail-panel {
-  position: fixed; inset: 0; z-index: 2000;
-  background: rgba(0,0,0,0.48);
-  display: flex; justify-content: flex-end;
+.card-img-emoji {
+  font-size: 3rem;
+  line-height: 1;
 }
-.detail-panel.hidden { display: none; }
+
+.card-img-name {
+  font-size: 0.78rem;
+  font-weight: 700;
+  color: var(--text-mid);
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  opacity: 0.8;
+}
+
+/* ===== DETAIL PANEL ===== */
+.detail-panel {
+  position: fixed;
+  inset: 0;
+  z-index: 2000;
+  background: rgba(0, 0, 0, 0.48);
+  display: flex;
+  justify-content: flex-end;
+}
+
+.detail-panel.hidden {
+  display: none;
+}
 
 .panel-close {
-  position: fixed; top: 16px; right: calc(568px + 14px);
-  background: white; border: 1px solid var(--border);
-  padding: 8px 14px; border-radius: var(--r);
-  font-size: 0.79rem; font-weight: 700; cursor: pointer;
-  font-family: inherit; color: var(--text-mid);
-  z-index: 2001; box-shadow: var(--shadow-sm);
+  position: fixed;
+  top: 16px;
+  right: calc(568px + 14px);
+  background: white;
+  border: 1px solid var(--border);
+  padding: 8px 14px;
+  border-radius: var(--r);
+  font-size: 0.79rem;
+  font-weight: 700;
+  cursor: pointer;
+  font-family: inherit;
+  color: var(--text-mid);
+  z-index: 2001;
+  box-shadow: var(--shadow-sm);
 }
-.panel-close:hover { background: var(--gov-pale2); }
+
+.panel-close:hover {
+  background: var(--bg);
+}
 
 .panel-inner {
-  width: 568px; height: 100vh; background: white;
+  width: 568px;
+  height: 100vh;
+  background: white;
   border-left: 1px solid var(--border);
-  display: flex; flex-direction: column; overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
 }
 
 .panel-header {
-  background: var(--gov-dark); padding: 18px 26px; flex-shrink: 0;
-  display: flex; align-items: center; gap: 14px;
+  background: var(--gov-dark);
+  padding: 18px 26px;
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  gap: 14px;
 }
-.panel-emoji { font-size: 2rem; }
-#panelName { font-family: 'Outfit', sans-serif; font-size: 1.2rem; font-weight: 700; color: white; margin-bottom: 2px; }
-#panelTagline { font-size: 0.78rem; color: rgba(255,255,255,0.62); }
 
-.panel-tabs { display: flex; border-bottom: 2px solid var(--border); background: var(--gov-pale2); flex-shrink: 0; }
+.panel-emoji {
+  font-size: 2rem;
+}
+
+#panelName {
+  font-family: 'Source Serif 4', Georgia, serif;
+  font-size: 1.2rem;
+  font-weight: 700;
+  color: white;
+  margin-bottom: 2px;
+}
+
+#panelTagline {
+  font-size: 0.78rem;
+  color: rgba(255, 255, 255, 0.62);
+}
+
+.panel-tabs {
+  display: flex;
+  border-bottom: 2px solid var(--border);
+  background: var(--bg);
+  flex-shrink: 0;
+}
+
 .tab-btn {
-  flex: 1; padding: 11px; border: none; background: transparent;
-  font-family: inherit; font-size: 0.84rem; font-weight: 700; color: var(--text-light);
-  cursor: pointer; border-bottom: 3px solid transparent; margin-bottom: -2px;
-  text-transform: uppercase; letter-spacing: 0.4px;
+  flex: 1;
+  padding: 11px;
+  border: none;
+  background: transparent;
+  font-family: inherit;
+  font-size: 0.84rem;
+  font-weight: 700;
+  color: var(--text-light);
+  cursor: pointer;
+  border-bottom: 3px solid transparent;
+  margin-bottom: -2px;
+  text-transform: uppercase;
+  letter-spacing: 0.4px;
   transition: color 0.12s, border-color 0.12s;
 }
-.tab-btn.active { color: var(--gov-dark); border-bottom-color: var(--amber); }
-.tab-btn:hover:not(.active) { color: var(--text-mid); background: rgba(0,0,0,0.03); }
 
-.panel-content { flex: 1; overflow-y: auto; padding: 22px 26px; }
-.tab-content { display: none; }
-.tab-content.active { display: block; }
+.tab-btn.active {
+  color: var(--gov-dark);
+  border-bottom-color: var(--amber);
+}
+
+.tab-btn:hover:not(.active) {
+  color: var(--text-mid);
+  background: rgba(0, 0, 0, 0.03);
+}
+
+.panel-content {
+  flex: 1;
+  overflow-y: auto;
+  padding: 22px 26px;
+}
+
+.tab-content {
+  display: none;
+}
+
+.tab-content.active {
+  display: block;
+}
 
 .tab-label {
-  font-size: 0.67rem; font-weight: 700; text-transform: uppercase; letter-spacing: 1.5px;
-  color: var(--text-muted); margin-bottom: 16px;
-  display: flex; justify-content: space-between; align-items: center;
+  font-size: 0.67rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+  color: var(--text-muted);
+  margin-bottom: 16px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
-.per100 { font-weight: 400; font-size: 0.65rem; }
 
-.nutrient-bars { display: flex; flex-direction: column; gap: 12px; }
-.nutrient-meta { display: flex; justify-content: space-between; font-size: 0.82rem; margin-bottom: 4px; }
-.nutrient-name { font-weight: 600; color: var(--text); }
-.nutrient-val { font-weight: 700; color: var(--gov-mid); }
-.bar-track { height: 7px; background: var(--border); border-radius: 2px; overflow: hidden; }
-.bar-fill { height: 100%; background: var(--gov-mid); border-radius: 2px; width: 0; transition: width 0.5s ease; }
+.per100 {
+  font-weight: 400;
+  font-size: 0.65rem;
+}
 
-.benefits-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+/* Nutrient Bars */
+.nutrient-bars {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.nutrient-meta {
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.82rem;
+  margin-bottom: 4px;
+}
+
+.nutrient-name {
+  font-weight: 600;
+  color: var(--text);
+}
+
+.nutrient-val {
+  font-weight: 700;
+  color: var(--gov-mid);
+}
+
+.bar-track {
+  height: 7px;
+  background: var(--border);
+  border-radius: 2px;
+  overflow: hidden;
+}
+
+.bar-fill {
+  height: 100%;
+  background: var(--gov-mid);
+  border-radius: 2px;
+  width: 0;
+  transition: width 0.5s ease;
+}
+
+/* Benefits Grid */
+.benefits-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+}
+
 .benefit-item {
-  background: var(--gov-pale2); border: 1px solid var(--border); border-left: 3px solid var(--gov-mid);
-  border-radius: var(--r); padding: 12px;
+  background: var(--gov-pale2);
+  border: 1px solid var(--border);
+  border-left: 3px solid var(--gov-mid);
+  border-radius: var(--r);
+  padding: 12px;
 }
-.benefit-icon { font-size: 1.25rem; margin-bottom: 6px; }
-.benefit-title { font-weight: 700; font-size: 0.82rem; color: var(--text); margin-bottom: 3px; }
-.benefit-text { font-size: 0.75rem; color: var(--text-light); line-height: 1.55; }
 
-.recipe-selector { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 16px; }
+.benefit-icon {
+  font-size: 1.25rem;
+  margin-bottom: 6px;
+}
+
+.benefit-title {
+  font-weight: 700;
+  font-size: 0.82rem;
+  color: var(--text);
+  margin-bottom: 3px;
+}
+
+.benefit-text {
+  font-size: 0.75rem;
+  color: var(--text-light);
+  line-height: 1.55;
+}
+
+/* Recipes inside Detail Panel */
+.recipe-selector {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-bottom: 16px;
+}
+
 .recipe-btn {
-  padding: 6px 12px; border: 1px solid var(--border); background: var(--gov-pale2);
-  border-radius: var(--r); font-size: 0.77rem; font-weight: 600; cursor: pointer;
-  color: var(--text-mid); font-family: inherit;
+  padding: 6px 12px;
+  border: 1px solid var(--border);
+  background: var(--bg);
+  border-radius: var(--r);
+  font-size: 0.77rem;
+  font-weight: 600;
+  cursor: pointer;
+  color: var(--text-mid);
+  font-family: inherit;
   transition: background 0.1s, color 0.1s, border-color 0.1s;
 }
-.recipe-btn.active, .recipe-btn:hover { background: var(--gov-dark); color: white; border-color: var(--gov-dark); }
 
-.recipe-card-detail { background: var(--gov-pale2); border: 1px solid var(--border); border-radius: var(--r); padding: 18px; }
-.recipe-title { font-family: 'Outfit', sans-serif; font-size: 1rem; font-weight: 700; color: var(--text); margin-bottom: 10px; }
-.recipe-meta-row {
-  display: flex; gap: 18px; flex-wrap: wrap; padding: 9px 0;
-  border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); margin-bottom: 14px;
+.recipe-btn.active, .recipe-btn:hover {
+  background: var(--gov-dark);
+  color: white;
+  border-color: var(--gov-dark);
 }
-.recipe-meta { font-size: 0.79rem; color: var(--text-light); }
-.recipe-meta span { font-weight: 700; color: var(--text); }
-.recipe-section-title {
-  font-size: 0.65rem; font-weight: 700; text-transform: uppercase; letter-spacing: 1.5px;
-  color: var(--text-muted); margin: 12px 0 7px;
-}
-.ingredient-list { display: flex; flex-direction: column; gap: 3px; }
-.ingredient-row {
-  display: flex; justify-content: space-between; align-items: center; padding: 5px 9px;
-  background: white; border: 1px solid var(--border); border-radius: var(--r); font-size: 0.81rem;
-}
-.ingredient-row:nth-child(even) { background: var(--gov-pale); }
-.ing-name { font-weight: 500; color: var(--text); }
-.ing-amount { font-weight: 700; color: var(--gov-mid); font-size: 0.76rem; }
-.steps-list { display: flex; flex-direction: column; gap: 8px; }
-.step-item { display: flex; gap: 10px; align-items: flex-start; }
-.step-num {
-  width: 22px; height: 22px; background: var(--gov-dark); color: white; border-radius: 2px;
-  display: flex; align-items: center; justify-content: center;
-  font-size: 0.67rem; font-weight: 700; flex-shrink: 0; margin-top: 2px;
-}
-.step-text { font-size: 0.82rem; color: var(--text-mid); line-height: 1.65; }
 
-.recipe-img { width: 100%; height: 190px; object-fit: cover; display: block; border-radius: var(--r); margin-bottom: 14px; }
-.recipe-img-placeholder {
-  width: 100%; height: 190px; border-radius: var(--r); margin-bottom: 14px;
-  display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 8px;
+.recipe-card-detail {
+  background: var(--gov-pale2);
   border: 1px solid var(--border);
+  border-radius: var(--r);
+  padding: 18px;
 }
-.recipe-img-emoji { font-size: 2.8rem; line-height: 1; }
+
+.recipe-title {
+  font-family: 'Source Serif 4', Georgia, serif;
+  font-size: 1rem;
+  font-weight: 700;
+  color: var(--text);
+  margin-bottom: 10px;
+}
+
+.recipe-meta-row {
+  display: flex;
+  gap: 18px;
+  flex-wrap: wrap;
+  padding: 9px 0;
+  border-top: 1px solid var(--border);
+  border-bottom: 1px solid var(--border);
+  margin-bottom: 14px;
+}
+
+.recipe-meta {
+  font-size: 0.79rem;
+  color: var(--text-light);
+}
+
+.recipe-meta span {
+  font-weight: 700;
+  color: var(--text);
+}
+
+.recipe-section-title {
+  font-size: 0.65rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+  color: var(--text-muted);
+  margin: 12px 0 7px;
+}
+
+.ingredient-list {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+}
+
+.ingredient-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 5px 9px;
+  background: white;
+  border: 1px solid var(--border);
+  border-radius: var(--r);
+  font-size: 0.81rem;
+}
+
+.ingredient-row:nth-child(even) {
+  background: var(--gov-pale);
+}
+
+.ing-name {
+  font-weight: 500;
+  color: var(--text);
+}
+
+.ing-amount {
+  font-weight: 700;
+  color: var(--gov-mid);
+  font-size: 0.76rem;
+}
+
+.steps-list {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.step-item {
+  display: flex;
+  gap: 10px;
+  align-items: flex-start;
+}
+
+.step-num {
+  width: 22px;
+  height: 22px;
+  background: var(--gov-dark);
+  color: white;
+  border-radius: 2px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.67rem;
+  font-weight: 700;
+  flex-shrink: 0;
+  margin-top: 2px;
+}
+
+.step-text {
+  font-size: 0.82rem;
+  color: var(--text-mid);
+  line-height: 1.65;
+}
+
+/* Recipe Images & Placeholders */
+.recipe-img-wrap {
+  width: 100%;
+  overflow: hidden;
+  border-radius: var(--r);
+  margin-bottom: 14px;
+}
+
+.recipe-img {
+  width: 100%;
+  height: 190px;
+  object-fit: cover;
+  display: block;
+  border-radius: var(--r);
+}
+
+.recipe-img-placeholder {
+  width: 100%;
+  height: 190px;
+  border-radius: var(--r);
+  margin-bottom: 14px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  border: 1px solid var(--border);
+  background: white;
+}
+
+.recipe-img-emoji {
+  font-size: 2.8rem;
+  line-height: 1;
+}
+
+.recipe-img-label {
+  font-size: 0.8rem;
+  font-weight: 700;
+  color: var(--text-mid);
+  opacity: 0.75;
+  text-align: center;
+  padding: 0 16px;
+}
 
 /* ===== TAMIL NADU MILLET MAP SECTION ===== */
-#tn-map-section { text-align: left; }
-.tn-map-layout { display: grid; grid-template-columns: 260px 1fr; gap: 24px; align-items: start; margin-top: 28px; }
-.tn-map-legend {
-  background: var(--white); border: 1px solid var(--border); border-radius: 10px;
-  padding: 20px; box-shadow: var(--shadow-sm); position: sticky; top: 90px;
+#tn-map-section {
+  background: var(--gov-pale2);
+  border-top: 3px solid var(--gov-light);
 }
-.legend-title { font-family: 'Outfit', sans-serif; font-weight: 700; font-size: 1rem; color: var(--gov-dark); margin-bottom: 14px; padding-bottom: 10px; border-bottom: 2px solid var(--gov-pale); }
-.legend-items { display: flex; flex-direction: column; gap: 8px; margin-bottom: 16px; max-height: 380px; overflow-y: auto; }
-.legend-item { display: flex; align-items: center; gap: 10px; cursor: pointer; padding: 6px 8px; border-radius: 6px; transition: background 0.2s; font-size: 0.85rem; color: var(--text-mid); }
-.legend-item:hover { background: var(--gov-pale); color: var(--gov-dark); }
-.legend-dot { width: 13px; height: 13px; border-radius: 50%; flex-shrink: 0; border: 2px solid rgba(255,255,255,0.6); box-shadow: 0 0 0 1px rgba(0,0,0,0.12); }
-.legend-label { font-weight: 500; }
-.legend-note { font-size: 0.75rem; color: var(--text-muted); line-height: 1.5; border-top: 1px solid var(--border); padding-top: 12px; margin-top: 4px; }
-.tn-map-container { position: relative; border-radius: 12px; overflow: hidden; box-shadow: var(--shadow-md); border: 2px solid var(--border); }
-#tnMap { height: 520px; width: 100%; background: #e8f4ee; }
-.map-marker-pin { width: 38px; height: 38px; border-radius: 50% 50% 50% 0; transform: rotate(-45deg); display: flex; align-items: center; justify-content: center; font-size: 18px; box-shadow: 0 3px 10px rgba(0,0,0,0.25); border: 2px solid rgba(255,255,255,0.7); cursor: pointer; }
+
+.tn-map-layout {
+  display: grid;
+  grid-template-columns: 260px 1fr;
+  gap: 24px;
+  align-items: start;
+  margin-top: 28px;
+}
+
+.tn-map-legend {
+  background: var(--white);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 20px;
+  box-shadow: var(--shadow-sm);
+  position: sticky;
+  top: 80px;
+}
+
+.legend-title {
+  font-family: 'Source Serif 4', serif;
+  font-weight: 700;
+  font-size: 1rem;
+  color: var(--gov-dark);
+  margin-bottom: 14px;
+  padding-bottom: 10px;
+  border-bottom: 2px solid var(--gov-pale);
+}
+
+.legend-items {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-bottom: 16px;
+  max-height: 380px;
+  overflow-y: auto;
+}
+
+.legend-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  cursor: pointer;
+  padding: 6px 8px;
+  border-radius: 6px;
+  transition: background 0.2s;
+  font-size: 0.85rem;
+  color: var(--text-mid);
+}
+
+.legend-item:hover {
+  background: var(--gov-pale);
+  color: var(--gov-dark);
+}
+
+.legend-dot {
+  width: 13px;
+  height: 13px;
+  border-radius: 50%;
+  flex-shrink: 0;
+  border: 2px solid rgba(255, 255, 255, 0.6);
+  box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.12);
+}
+
+.legend-label {
+  font-weight: 500;
+}
+
+.legend-note {
+  font-size: 0.75rem;
+  color: var(--text-muted);
+  line-height: 1.5;
+  border-top: 1px solid var(--border);
+  padding-top: 12px;
+  margin-top: 4px;
+}
+
+.tn-map-container {
+  position: relative;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: var(--shadow-md);
+  border: 2px solid var(--border);
+}
+
+#tnMap {
+  height: 520px;
+  width: 100%;
+  background: #e8f4ee;
+}
+
+.map-marker-pin {
+  width: 38px;
+  height: 38px;
+  border-radius: 50% 50% 50% 0;
+  transform: rotate(-45deg);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 18px;
+  box-shadow: 0 3px 10px rgba(0, 0, 0, 0.25);
+  border: 2px solid rgba(255, 255, 255, 0.7);
+  cursor: pointer;
+}
+
 .map-info-box {
-  position: absolute; bottom: 20px; left: 20px; width: 280px; background: var(--white);
-  border-radius: 10px; padding: 18px; box-shadow: 0 6px 24px rgba(0,0,0,0.18);
-  border-left: 4px solid var(--gov-light); z-index: 1000;
-  opacity: 0; transform: translateY(10px); pointer-events: none;
+  position: absolute;
+  bottom: 20px;
+  left: 20px;
+  width: 280px;
+  background: var(--white);
+  border-radius: 10px;
+  padding: 18px;
+  box-shadow: 0 6px 24px rgba(0, 0, 0, 0.18);
+  border-left: 4px solid var(--gov-light);
+  z-index: 1000;
+  opacity: 0;
+  transform: translateY(10px);
+  pointer-events: none;
   transition: opacity 0.25s ease, transform 0.25s ease;
 }
-.map-info-box.visible { opacity: 1; transform: translateY(0); pointer-events: all; }
-.map-info-close { position: absolute; top: 10px; right: 12px; cursor: pointer; font-size: 0.75rem; color: var(--text-muted); font-weight: 600; background: var(--gov-pale); border-radius: 4px; padding: 2px 6px; }
-.map-info-district { font-family: 'Outfit', sans-serif; font-weight: 700; font-size: 1rem; color: var(--gov-dark); margin-bottom: 10px; }
-.map-info-millets { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 10px; }
-.millet-tag { font-size: 0.72rem; font-weight: 600; padding: 3px 9px; border-radius: 20px; border: 1px solid; letter-spacing: 0.02em; }
-.map-info-note { font-size: 0.78rem; color: var(--text-light); line-height: 1.55; }
 
-/* ===== RESPONSIVE ===== */
-@media (max-width: 768px) {
-  .panel-inner { width: 100vw; }
-  .panel-close { right: 10px; }
-  .millets-grid { grid-template-columns: 1fr 1fr; }
-  .benefits-grid { grid-template-columns: 1fr; }
-  .tn-map-layout { grid-template-columns: 1fr; }
+.map-info-box.visible {
+  opacity: 1;
+  transform: translateY(0);
+  pointer-events: all;
 }
+
+.map-info-close {
+  position: absolute;
+  top: 10px;
+  right: 12px;
+  cursor: pointer;
+  font-size: 0.75rem;
+  color: var(--text-muted);
+  font-weight: 600;
+  background: var(--gov-pale);
+  border-radius: 4px;
+  padding: 2px 6px;
+}
+
+.map-info-district {
+  font-family: 'Source Serif 4', serif;
+  font-weight: 700;
+  font-size: 1rem;
+  color: var(--gov-dark);
+  margin-bottom: 10px;
+}
+
+.map-info-millets {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-bottom: 10px;
+}
+
+.millet-tag {
+  font-size: 0.72rem;
+  font-weight: 600;
+  padding: 3px 9px;
+  border-radius: 20px;
+  border: 1px solid;
+  letter-spacing: 0.02em;
+}
+
+.map-info-note {
+  font-size: 0.78rem;
+  color: var(--text-light);
+  line-height: 1.55;
+}
+
+/* ===== RESPONSIVE MEDIA QUERIES ===== */
+@media (max-width: 768px) {
+  section {
+    padding: 36px 0;
+  }
+  .section-container {
+    padding: 0 16px;
+  }
+  .panel-inner {
+    width: 100vw;
+  }
+  .panel-close {
+    right: 10px;
+  }
+  .millets-grid {
+    grid-template-columns: 1fr 1fr;
+  }
+  .benefits-grid {
+    grid-template-columns: 1fr;
+  }
+  .tn-map-layout {
+    grid-template-columns: 1fr;
+  }
+}
+
 @media (max-width: 480px) {
-  .millets-grid { grid-template-columns: 1fr; }
+  .millets-grid {
+    grid-template-columns: 1fr;
+  }
 }
 
