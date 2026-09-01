@@ -19,6 +19,7 @@
             display: flex;
             flex-direction: column;
             align-items: center;
+            overflow-x: hidden;   
         }
 
         /* ===== Header ===== */
@@ -72,6 +73,11 @@
             box-sizing: border-box;
             border-bottom: 4px solid #d4a373;
             overflow: hidden;
+        }
+        .nav-links {
+    display: flex;
+    gap: 20px;
+    flex-wrap: wrap;   /* ← add this line */
         }
 
         .hero-content { max-width: 780px; margin: 0 auto; position: relative; z-index: 1; }
