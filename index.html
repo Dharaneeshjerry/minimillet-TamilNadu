@@ -6,6 +6,7 @@
     <title>Millet Tamil Nadu</title>
     <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
     <style>
         /* Global Styles & Color Palette */
         html {
@@ -495,7 +496,8 @@
             <a href="#about">About Us</a>
             <a href="#gallery">Gallery</a>
             <a href="#videos">Videos</a>
-            <a href="#millet">Millet</a>
+            <a href="#millets">Millet</a>
+            <a href="#tn-map-section">Map</a>
             <a href="#contact">Contact</a>
         </nav>
     </header>
@@ -612,128 +614,113 @@
         </div>
     </section>
 
-   
-<<!-- MILLETS GRID -->
-<section id="millets">
-  <div class="section-container">
-    <div class="section-head">
-      <div>
-        <div class="section-eyebrow">The Sacred Eight</div>
-        <h2>Choose Your Millet</h2>
-        <p class="section-head-desc">Select any millet to view its nutritional profile, health benefits, and traditional recipes</p>
-      </div>
-      <div class="section-head-meta">Showing 8 varieties</div>
-    </div>
-    <div class="millets-grid" id="milletsGrid">
-      <!-- Cards injected by JS -->
-    </div>
-  </div>
-</section>
-
-<!-- MILLET DETAIL PANEL -->
-<div id="detailPanel" class="detail-panel hidden">
-  <button class="panel-close" onclick="closePanel()">✕ Close</button>
-  <div class="panel-inner">
-    <div class="panel-header">
-      <div class="panel-emoji" id="panelEmoji"></div>
-      <div class="panel-header-text">
-        <div id="panelName"></div>
-        <div id="panelTagline"></div>
-      </div>
-    </div>
-    <div class="panel-tabs">
-      <button class="tab-btn active" onclick="switchTab('nutrition')">Nutrition</button>
-      <button class="tab-btn" onclick="switchTab('benefits')">Benefits</button>
-      <button class="tab-btn" onclick="switchTab('recipes')">Recipes</button>
-    </div>
-    <div class="panel-content">
-      <div id="tab-nutrition" class="tab-content active">
-        <div class="tab-label">
-          Nutritional Breakdown
-          <span class="per100">per 100g raw grain</span>
+    <section id="millets" class="section-container">
+      <div class="section-head">
+        <div>
+          <div class="section-eyebrow">The Sacred Eight</div>
+          <h2>Choose Your Millet</h2>
+          <p class="section-head-desc">Select any millet to view its nutritional profile, health benefits, and traditional recipes</p>
         </div>
-        <div class="nutrient-bars" id="nutrientBars"></div>
+        <div class="section-head-meta">Showing 8 varieties</div>
       </div>
-      <div id="tab-benefits" class="tab-content">
-        <div class="tab-label">Health Benefits</div>
-        <div class="benefits-grid" id="benefitsList"></div>
+      <div class="millets-grid" id="milletsGrid">
+        <!-- Cards injected by JS -->
       </div>
-      <div id="tab-recipes" class="tab-content">
-        <div class="tab-label">Traditional Recipes</div>
-        <div class="recipe-selector" id="recipeSelector"></div>
-        <div class="recipe-card-detail" id="recipeDetail"></div>
-      </div>
-    </div>
-  </div>
-</div>
+    </section>
 
-<script src="data.js"></script>
-<script src="app.js"></script>
-
-<!-- TAMIL NADU MILLET MAP -->
-<section id="tn-map-section">
-  <div class="section-container">
-    <div class="section-head">
-      <div>
-        <div class="section-eyebrow">Geographical Distribution</div>
-        <h2>Millet Growing Regions in Tamil Nadu</h2>
-        <p class="section-head-desc">Explore key districts across Tamil Nadu where millets are traditionally cultivated</p>
-      </div>
-    </div>
-    <div class="tn-map-layout">
-      <div class="tn-map-legend">
-        <div class="legend-title">🌾 Millet Regions</div>
-        <div class="legend-items" id="mapLegendItems"></div>
-        <div class="legend-note">Click a marker on the map to learn more about that region's millet varieties.</div>
-      </div>
-      <div class="tn-map-container">
-        <div id="tnMap"></div>
-        <div class="map-info-box" id="mapInfoBox">
-          <div class="map-info-close" onclick="document.getElementById('mapInfoBox').classList.remove('visible')">✕</div>
-          <div class="map-info-district" id="mapInfoDistrict"></div>
-          <div class="map-info-millets" id="mapInfoMillets"></div>
-          <div class="map-info-note" id="mapInfoNote"></div>
+    <!-- MILLET DETAIL PANEL -->
+    <div id="detailPanel" class="detail-panel hidden">
+      <button class="panel-close" onclick="closePanel()">✕ Close</button>
+      <div class="panel-inner">
+        <div class="panel-header">
+          <div class="panel-emoji" id="panelEmoji"></div>
+          <div class="panel-header-text">
+            <div id="panelName"></div>
+            <div id="panelTagline"></div>
+          </div>
+        </div>
+        <div class="panel-tabs">
+          <button class="tab-btn active" onclick="switchTab('nutrition')">Nutrition</button>
+          <button class="tab-btn" onclick="switchTab('benefits')">Benefits</button>
+          <button class="tab-btn" onclick="switchTab('recipes')">Recipes</button>
+        </div>
+        <div class="panel-content">
+          <div id="tab-nutrition" class="tab-content active">
+            <div class="tab-label">
+              Nutritional Breakdown
+              <span class="per100">per 100g raw grain</span>
+            </div>
+            <div class="nutrient-bars" id="nutrientBars"></div>
+          </div>
+          <div id="tab-benefits" class="tab-content">
+            <div class="tab-label">Health Benefits</div>
+            <div class="benefits-grid" id="benefitsList"></div>
+          </div>
+          <div id="tab-recipes" class="tab-content">
+            <div class="tab-label">Traditional Recipes</div>
+            <div class="recipe-selector" id="recipeSelector"></div>
+            <div class="recipe-card-detail" id="recipeDetail"></div>
+          </div>
         </div>
       </div>
     </div>
-  </div>
-</section>
 
-<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
-<script src="app.js"></script>
-<script src="data.js"></script>
+    <!-- TAMIL NADU MILLET MAP -->
+    <section id="tn-map-section" class="section-container gallery-container">
+      <div class="section-head">
+        <div>
+          <div class="section-eyebrow" style="color:#f4a261;">Geographical Distribution</div>
+          <h2 style="color:#f4a261;">Millet Growing Regions in Tamil Nadu</h2>
+          <p class="section-head-desc" style="color:#d8b4a0;">Explore key districts across Tamil Nadu where millets are traditionally cultivated</p>
+        </div>
+      </div>
+      <div class="tn-map-layout">
+        <div class="tn-map-legend">
+          <div class="legend-title">🌾 Millet Regions</div>
+          <div class="legend-items" id="mapLegendItems"></div>
+          <div class="legend-note">Click a marker on the map to learn more about that region's millet varieties.</div>
+        </div>
+        <div class="tn-map-container">
+          <div id="tnMap"></div>
+          <div class="map-info-box" id="mapInfoBox">
+            <div class="map-info-close" onclick="document.getElementById('mapInfoBox').classList.remove('visible')">✕</div>
+            <div class="map-info-district" id="mapInfoDistrict"></div>
+            <div class="map-info-millets" id="mapInfoMillets"></div>
+            <div class="map-info-note" id="mapInfoNote"></div>
+          </div>
+        </div>
+      </div>
+    </section>
 
     <section id="contact" class="section-container">
         <h2 class="section-title">Contact Us</h2>
-        <form class="contact-form" action="#" method="POST">
+        <div class="contact-form">
             <div class="form-group">
                 <label for="name">Name</label>
-                <input type="text" id="name" name="name" placeholder="Enter your name" required>
+                <input type="text" id="name" name="name" placeholder="Your name">
             </div>
             <div class="form-group">
                 <label for="email">Email</label>
-                <input type="email" id="email" name="email" placeholder="Enter your email" required>
-            </div>
-            <div class="form-group">
-                <label for="phone">Phone No</label>
-                <input type="tel" id="phone" name="phone" placeholder="Enter your phone number" required>
-            </div>
-            <div class="form-group">
-                <label for="subject">Subject</label>
-                <input type="text" id="subject" name="subject" placeholder="Enter subject" required>
+                <input type="email" id="email" name="email" placeholder="you@example.com">
             </div>
             <div class="form-group">
                 <label for="message">Message</label>
-                <textarea id="message" name="message" placeholder="Type your message here..." required></textarea>
+                <textarea id="message" name="message" placeholder="Your message"></textarea>
             </div>
-            <button type="submit" class="submit-btn">Send Message</button>
-        </form>
+            <button type="button" class="submit-btn">Send Message</button>
+        </div>
     </section>
 
     <footer>
-        <p>&copy; 2026 Millet Tamil Nadu. All Rights Reserved.</p>
-        <p>Promoting Health, Tradition, and Sustainable Agriculture.</p>
+        <p>Millet Tamil Nadu</p>
+        <p>Reviving ancient grains for a healthier tomorrow.</p>
     </footer>
 
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+    <script src="data.js"></script>
+    <script src="app.js"></script>
+    <script src="map.js"></script>
 </body>
 </html>
+            <div id="panelName"></div>
+         
