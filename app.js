@@ -1,135 +1,178 @@
-// app.js - Millet Tamil Nadu
+// ===== APP.JS — Millet Section =====
 
-document.addEventListener('DOMContentLoaded', () => {
-    renderMilletsGrid();
+// ── Image helpers ──
+
+function milletImgHTML(m) {
+  if (m.image) {
+    return '<img src="' + m.image + '" alt="' + m.name + '" class="card-img" onerror="this.style.display=\'none\'">';
+  }
+  return '<div class="card-img-placeholder" style="background:linear-gradient(135deg,' + m.color + '25,' + m.color + '55);"><span class="card-img-emoji">' + m.emoji + '</span></div>';
+}
+
+function recipeImgHTML(recipe, color) {
+  if (recipe.image) {
+    return '<img src="' + recipe.image + '" alt="' + recipe.name + '" class="recipe-img" onerror="this.style.display=\'none\'">';
+  }
+  return '<div class="recipe-img-placeholder" style="background:linear-gradient(135deg,' + color + '20,' + color + '45);"><span class="recipe-img-emoji">🍽</span></div>';
+}
+
+// ── Render Millet Cards ──
+function renderCards() {
+  const grid = document.getElementById('milletsGrid');
+  grid.innerHTML = '';
+  MILLETS.forEach((m) => {
+    const card = document.createElement('div');
+    card.className = 'millet-card';
+    card.style.setProperty('--card-color', m.color);
+    card.innerHTML = `
+      <div class="card-color-bar"></div>
+      ${milletImgHTML(m)}
+      <div class="card-body">
+        <div class="card-header-row">
+          <div>
+            <div class="card-name">${m.name}</div>
+            <div class="card-aka">${m.aka}</div>
+          </div>
+        </div>
+        <div class="card-desc">${m.description}</div>
+        <div class="card-tags">${m.tags.map(t => `<span class="card-tag">${t}</span>`).join('')}</div>
+        <div class="card-foot">
+          <span class="card-link">View Details →</span>
+          <span class="card-count">${m.recipes.length} recipes</span>
+        </div>
+      </div>
+    `;
+    card.addEventListener('click', () => openPanel(m));
+    grid.appendChild(card);
+  });
+}
+
+// ── Detail Panel ──
+let activeRecipeIndex = 0;
+let activeMillet = null;
+
+function openPanel(millet) {
+  activeMillet = millet;
+  activeRecipeIndex = 0;
+  const panel = document.getElementById('detailPanel');
+  panel.classList.remove('hidden');
+  document.body.style.overflow = 'hidden';
+
+  document.getElementById('panelEmoji').textContent = millet.emoji;
+  document.getElementById('panelName').textContent = millet.name;
+  document.getElementById('panelTagline').textContent = millet.tagline;
+
+  switchTab('nutrition');
+}
+
+function closePanel() {
+  document.getElementById('detailPanel').classList.add('hidden');
+  document.body.style.overflow = '';
+}
+
+document.getElementById('detailPanel').addEventListener('click', (e) => {
+  if (e.target === document.getElementById('detailPanel')) closePanel();
 });
 
-// 1. Render the Sacred Eight Millet Cards dynamically
-function renderMilletsGrid() {
-    const grid = document.getElementById('milletsGrid');
-    if (!grid || typeof milletsData === 'undefined') return;
+function switchTab(tab) {
+  document.querySelectorAll('.tab-btn').forEach((btn, i) => {
+    const tabs = ['nutrition', 'benefits', 'recipes'];
+    btn.classList.toggle('active', tabs[i] === tab);
+  });
+  document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
+  document.getElementById(`tab-${tab}`).classList.add('active');
 
-    grid.innerHTML = milletsData.map(millet => `
-        <div class="millet-item" onclick="openPanel('${millet.id}')" style="cursor: pointer;">
-            <h4>${millet.emoji || '🌾'} ${millet.name}</h4>
-            <p>${millet.tagline || millet.description || 'Explore nutritional benefits and traditional recipes.'}</p>
-        </div>
-    `).join('');
+  if (tab === 'nutrition') renderNutrition(activeMillet);
+  if (tab === 'benefits')  renderBenefits(activeMillet);
+  if (tab === 'recipes')   renderRecipes(activeMillet);
 }
 
-// 2. Open Detail Panel and Populate Data
-function openPanel(id) {
-    if (typeof milletsData === 'undefined') return;
-    const millet = milletsData.find(m => m.id === id);
-    if (!millet) return;
-
-    document.getElementById('panelEmoji').textContent = millet.emoji || '🌾';
-    document.getElementById('panelName').textContent = millet.name;
-    document.getElementById('panelTagline').textContent = millet.tagline || '';
-
-    // Populate Nutrition Bars
-    const nutrientBarsContainer = document.getElementById('nutrientBars');
-    if (millet.nutrition && nutrientBarsContainer) {
-        nutrientBarsContainer.innerHTML = millet.nutrition.map(n => `
-            <div style="margin-bottom: 10px;">
-                <div style="display: flex; justify-content: space-between; font-size: 13px; font-weight: 500; margin-bottom: 4px;">
-                    <span>${n.label}</span>
-                    <span>${n.value}</span>
-                </div>
-                <div style="background: #e2e8f0; border-radius: 4px; height: 8px; overflow: hidden;">
-                    <div style="background: #2d6a4f; width: ${n.percentage || 60}%; height: 100%; border-radius: 4px;"></div>
-                </div>
-            </div>
-        `).join('');
-    }
-
-    // Populate Benefits
-    const benefitsListContainer = document.getElementById('benefitsList');
-    if (millet.benefits && benefitsListContainer) {
-        benefitsListContainer.innerHTML = millet.benefits.map(b => `
-            <div style="background: #f8f9fa; border: 1px solid #cbd5e1; padding: 12px; border-radius: 6px; font-size: 13.5px;">
-                ✅ ${b}
-            </div>
-        `).join('');
-    }
-
-    // Populate Recipes
-    if (millet.recipes && millet.recipes.length > 0) {
-        renderRecipes(millet.recipes);
-    }
-
-    // Display Panel
-    const panel = document.getElementById('detailPanel');
-    panel.classList.remove('hidden');
-    panel.style.display = 'block';
-}
-
-// 3. Close Detail Panel
-function closePanel() {
-    const panel = document.getElementById('detailPanel');
-    panel.classList.add('hidden');
-    panel.style.display = 'none';
-}
-
-// 4. Tab Switching Logic
-function switchTab(tabName) {
-    document.querySelectorAll('.tab-content').forEach(el => el.classList.remove('active'));
-    document.querySelectorAll('.tab-btn').forEach(el => el.classList.remove('active'));
-
-    const targetContent = document.getElementById(`tab-${tabName}`);
-    if (targetContent) targetContent.classList.add('active');
-
-    // Find and highlight matching tab button
-    const clickedBtn = Array.from(document.querySelectorAll('.tab-btn')).find(btn => 
-        btn.textContent.toLowerCase().includes(tabName)
-    );
-    if (clickedBtn) clickedBtn.classList.add('active');
-}
-
-// 5. Render Recipes inside the Panel
-function renderRecipes(recipes) {
-    const selector = document.getElementById('recipeSelector');
-    const detail = document.getElementById('recipeDetail');
-    if (!selector || !detail) return;
-
-    selector.innerHTML = recipes.map((r, index) => `
-        <button class="sub-recipe-btn" onclick="selectRecipe(${index})" style="padding: 6px 12px; margin-right: 8px; margin-bottom: 8px; border: 1px solid #2d6a4f; background: #fff; border-radius: 4px; cursor: pointer; font-size: 12.5px;">${r.name}</button>
-    `).join('');
-
-    displayRecipe(recipes[0]);
-    window.currentRecipesData = recipes;
-}
-
-window.selectRecipe = function(index) {
-    if (window.currentRecipesData && window.currentRecipesData[index]) {
-        displayRecipe(window.currentRecipesData[index]);
-    }
-}
-
-function displayRecipe(recipe) {
-    const detail = document.getElementById('recipeDetail');
-    if (!detail) return;
-    
-    const ingredientsHtml = Array.isArray(recipe.ingredients) 
-        ? recipe.ingredients.map(i => `<li>${i}</li>`).join('') 
-        : `<li>${recipe.ingredients}</li>`;
-        
-    const stepsHtml = Array.isArray(recipe.steps) 
-        ? recipe.steps.map(s => `<li>${s}</li>`).join('') 
-        : `<li>${recipe.steps}</li>`;
-
-    detail.innerHTML = `
-        <h4 style="color: #1b4332; margin-top: 0;">${recipe.name}</h4>
-        <strong style="font-size: 13px; color: #2d6a4f;">Ingredients:</strong>
-        <ul style="margin: 5px 0 15px 20px; font-size: 13px; color: #444;">${ingredientsHtml}</ul>
-        <strong style="font-size: 13px; color: #2d6a4f;">Instructions:</strong>
-        <ol style="margin: 5px 0 0 20px; font-size: 13px; color: #444;">${stepsHtml}</ol>
+function renderNutrition(millet) {
+  const container = document.getElementById('nutrientBars');
+  container.innerHTML = '';
+  Object.entries(millet.nutrition).forEach(([key, data]) => {
+    const pct = Math.min((data.value / data.max) * 100, 100);
+    const label = key.charAt(0).toUpperCase() + key.slice(1);
+    const row = document.createElement('div');
+    row.className = 'nutrient-row';
+    row.innerHTML = `
+      <div class="nutrient-meta">
+        <span class="nutrient-name">${label}</span>
+        <span class="nutrient-val">${data.value}${data.unit}</span>
+      </div>
+      <div class="bar-track">
+        <div class="bar-fill" style="width:0%" data-target="${pct}%"></div>
+      </div>
     `;
+    container.appendChild(row);
+  });
+  setTimeout(() => {
+    document.querySelectorAll('.bar-fill').forEach(bar => {
+      bar.style.width = bar.dataset.target;
+    });
+  }, 50);
 }
 
-// Make functions globally accessible for HTML event listeners
-window.openPanel = openPanel;
-window.closePanel = closePanel;
-window.switchTab = switchTab;
+function renderBenefits(millet) {
+  const container = document.getElementById('benefitsList');
+  container.innerHTML = millet.benefits.map(b => `
+    <div class="benefit-item">
+      <div class="benefit-icon">${b.icon}</div>
+      <div class="benefit-title">${b.title}</div>
+      <div class="benefit-text">${b.text}</div>
+    </div>
+  `).join('');
+}
 
+function renderRecipes(millet) {
+  const selector = document.getElementById('recipeSelector');
+  selector.innerHTML = millet.recipes.map((r, i) => `
+    <button class="recipe-btn ${i === activeRecipeIndex ? 'active' : ''}"
+      onclick="selectRecipe(${i})">${r.name}</button>
+  `).join('');
+  showRecipe(millet.recipes[activeRecipeIndex]);
+}
 
+function selectRecipe(index) {
+  activeRecipeIndex = index;
+  document.querySelectorAll('.recipe-btn').forEach((btn, i) => {
+    btn.classList.toggle('active', i === index);
+  });
+  showRecipe(activeMillet.recipes[index]);
+}
+
+function showRecipe(recipe) {
+  const container = document.getElementById('recipeDetail');
+  container.innerHTML = `
+    ${recipeImgHTML(recipe, activeMillet.color)}
+    <div class="recipe-title">${recipe.name}</div>
+    <div class="recipe-meta-row">
+      <div class="recipe-meta">⏱ Time: <span>${recipe.time}</span></div>
+      <div class="recipe-meta">🍽 Serves: <span>${recipe.servings}</span></div>
+      <div class="recipe-meta">📊 Level: <span>${recipe.difficulty}</span></div>
+    </div>
+    <div class="recipe-section-title">Ingredients</div>
+    <div class="ingredient-list">
+      ${recipe.ingredients.map(ing => `
+        <div class="ingredient-row">
+          <span class="ing-name">${ing.name}</span>
+          <span class="ing-amount">${ing.amount}</span>
+        </div>
+      `).join('')}
+    </div>
+    <div class="recipe-section-title">Method</div>
+    <div class="steps-list">
+      ${recipe.steps.map((step, i) => `
+        <div class="step-item">
+          <div class="step-num">${i + 1}</div>
+          <div class="step-text">${step}</div>
+        </div>
+      `).join('')}
+    </div>
+  `;
+}
+
+// ── Init ──
+document.addEventListener('DOMContentLoaded', () => {
+  renderCards();
+});
